@@ -1,6 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "TankAimingComponent.h"
+
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
@@ -13,7 +16,12 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	// Aim at specified location
 	void AimAt(FVector HitLocation);
+
+protected:
+	// Tank sub-object for aiming
+	UTankAimingComponent* TankAimingComponent = nullptr;
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,8 +32,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;	
 	
 };
