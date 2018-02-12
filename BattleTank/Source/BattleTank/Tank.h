@@ -19,6 +19,9 @@ public:
 	// Aim at specified location
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable)
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
 protected:
 	// Tank sub-object for aiming
 	UTankAimingComponent* TankAimingComponent = nullptr;
@@ -33,5 +36,4 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;	
-	
 };
