@@ -14,7 +14,7 @@ public:
 	UTankAimingComponent();
 
 	// Aim at specified location
-	void AimAt(FVector HitLocation);
+	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
