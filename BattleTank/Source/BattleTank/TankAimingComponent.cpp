@@ -30,7 +30,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		// Obtain aiming direction for barrel
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 
-		UE_LOG(LogTemp, Warning, TEXT("%s AimDirection is %s"), *GetOwner()->GetName(), *AimDirection.ToString());
+		MoveBarrel(AimDirection);
 	}
 }
 
@@ -53,5 +53,17 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UTankAimingComponent::MoveBarrel(FVector AimDirection)
+{
+	// Calculate difference between current barrel rotation and aiming direction
+	FRotator BarrelRotator = Barrel->GetForwardVector().Rotation();
+	FRotator AimRotator = AimDirection.Rotation();
+	FRotator DeltaRotator = AimRotator - BarrelRotator;
+
+	UE_LOG(LogTemp, Warning, TEXT("%s AimRotator is %s"), *GetOwner()->GetName(), *AimRotator.ToString());
+
+	// Apply new rotation to barrel object
 }
 
