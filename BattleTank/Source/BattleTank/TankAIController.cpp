@@ -1,26 +1,10 @@
 #include "TankAIController.h"
 
+#include "Tank.h"
+
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	auto ControlledTank = GetControlledTank();
-
-	if (ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Controlled AI tank: %s"), *ControlledTank->GetName())
-
-		auto PlayerTank = GetPlayerTank();
-
-		if (PlayerTank)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("This AI tank aiming at %s"), *PlayerTank->GetName());
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("There is no controlled AI tank!"))
-	}
 }
 
 void ATankAIController::Tick(float DeltaTime)

@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 
-#include "Tank.h"
-
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
+
+class ATank;
 
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -32,8 +32,10 @@ private:
 	// Returns true if hit landscape and false otherwise
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
+	// Get direction based on deprojecting screen coordinates at world
 	bool GetLookDirection(const FVector2D &ScreenLocation, FVector& LookDirection) const;
 
+	// Get location that was hit by line-tracing along look direction
 	bool GetLookDirectionHitLocation(const FVector& LookDirection, FVector& HitLocation) const;
 
 private:
