@@ -26,6 +26,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetTurretReference(UTankTurret* TurretToSet);
 
+	UFUNCTION(BlueprintCallable)
+	void Fire();
+
 protected:
 	// Tank sub-object for aiming
 	UTankAimingComponent* TankAimingComponent = nullptr;
