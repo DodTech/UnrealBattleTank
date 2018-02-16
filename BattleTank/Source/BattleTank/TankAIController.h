@@ -19,11 +19,4 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-private:
-	// Get tank possessed by this controller
-	ATank* GetControlledTank() const;	
-
-	// Get tank possessed by player controller
-	ATank* GetPlayerTank() const;
 };

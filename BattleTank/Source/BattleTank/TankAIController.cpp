@@ -11,7 +11,13 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!GetControlledTank() || !GetPlayerTank())
+	// Get tank possessed by this controller
+	ATank* ControlledTank = Cast<ATank>(GetPawn());
+
+	// Get tank possessed by player controller
+	ATank* PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	if (!ControlledTank || !PlayerTank)
 	{
 		return;
 	}
@@ -19,17 +25,8 @@ void ATankAIController::Tick(float DeltaTime)
 	// TODO Move towards the player
 
 	// Aim towards the player
-	GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+	ControlledTank->AimAt(PlayerTank->GetActorLocation());
 
-	// TODO Fire if ready
-}
-
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-ATank* ATankAIController::GetPlayerTank() const
-{
-	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	// Fire at player when ready
+	ControlledTank->Fire();
 }
