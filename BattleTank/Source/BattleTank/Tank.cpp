@@ -41,7 +41,16 @@ void ATank::Fire()
 	}
 
 	// Spawn projectile at the end of the barrel
-	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
+
+	FVector ProjectileSpawnLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	FRotator ProjectileSpawnRotation = Barrel->GetSocketRotation(FName("Projectile"));
+
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, ProjectileSpawnLocation, ProjectileSpawnRotation);
+
+	if (Projectile)
+	{
+		Projectile->LaunchProjectile(LaunchSpeed);
+	}
 }
 
 // Called when the game starts or when spawned
