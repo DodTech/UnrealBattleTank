@@ -25,3 +25,16 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 	// TODO Prevent double speed due to simultaneous control use
 }
+
+void UTankMovementComponent::IntendMoveAside(float Throw)
+{
+	if (!LeftTrack || !RightTrack)
+	{
+		return;
+	}
+
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+
+	// TODO Prevent double speed due to simultaneous control use
+}
