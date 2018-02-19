@@ -38,3 +38,8 @@ void UTankMovementComponent::IntendMoveAside(float Throw)
 
 	// TODO Prevent double speed due to simultaneous control use
 }
+
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s direct move velocity %s"), *GetOwner()->GetName(), *MoveVelocity.ToString());
+}
