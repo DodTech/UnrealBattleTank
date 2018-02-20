@@ -22,5 +22,5 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-	float AcceptanceRadius = 30.0f;
+	float AcceptanceRadius = 3000.0f;
 };
