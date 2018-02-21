@@ -25,11 +25,12 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	// Initialise tank barrel and turret references
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+
 	// Aim at specified location
 	void AimAt(FVector HitLocation, float LaunchSpeed);
-
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret* TurretToSet);
 
 protected:
 	// Called when the game starts
@@ -41,7 +42,7 @@ private:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringStatus = EFiringState::Aiming;
+	EFiringState FiringStatus = EFiringState::Locked;
 
 private:
 	UTankBarrel* Barrel = nullptr;
