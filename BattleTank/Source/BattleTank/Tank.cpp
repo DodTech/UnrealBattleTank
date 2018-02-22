@@ -4,7 +4,6 @@
 #include "TankTurret.h"
 
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 
 #include "Projectile.h"
 
@@ -33,7 +32,7 @@ void ATank::Fire()
 
 	if (IsReloaded)
 	{
-		if (!Barrel)
+		if (!ensure(Barrel))
 		{
 			return;
 		}
@@ -56,5 +55,7 @@ void ATank::Fire()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();	
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
