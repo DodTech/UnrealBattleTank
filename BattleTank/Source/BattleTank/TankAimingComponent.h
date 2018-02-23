@@ -30,7 +30,7 @@ public:
 	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	// Aim at specified location
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 protected:
 	// Called when the game starts
@@ -43,6 +43,9 @@ private:
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringStatus = EFiringState::Locked;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 10000.0f;
 
 private:
 	UTankBarrel* Barrel = nullptr;

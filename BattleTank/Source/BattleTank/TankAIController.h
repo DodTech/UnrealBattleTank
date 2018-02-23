@@ -5,7 +5,7 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-class ATank;
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
@@ -23,4 +23,7 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float AcceptanceRadius = 3000.0f;
+
+private:
+	UTankAimingComponent* AimingComponent = nullptr;
 };

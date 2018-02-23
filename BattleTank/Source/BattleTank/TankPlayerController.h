@@ -5,7 +5,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
 class UTankAimingComponent;
 
 UCLASS()
@@ -22,10 +21,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	// Get tank possessed by this controller
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
-
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimingComponentReference);
 
@@ -53,4 +48,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 100000.0f;
+
+private:
+	UTankAimingComponent* AimingComponent = nullptr;
 };
