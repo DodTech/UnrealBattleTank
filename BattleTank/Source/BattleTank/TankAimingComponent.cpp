@@ -12,8 +12,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
-	// ...
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
@@ -46,37 +44,34 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 void UTankAimingComponent::Fire()
 {
-	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	if (!ensure(Barrel))
+	{
+		return;
+	}
 
-	// Spawn projectile at the end of the barrel if tank is already reloaded
+	// Determine if there was enough time for tank to reload since last shot was done
+	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;	
 
 	if (IsReloaded)
 	{
-		if (!ensure(Barrel))
-		{
-			return;
-		}
-
 		FVector ProjectileSpawnLocation = Barrel->GetSocketLocation(FName("Projectile"));
 		FRotator ProjectileSpawnRotation = Barrel->GetSocketRotation(FName("Projectile"));
 
+		// Spawn projectile at the end of the barrel
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, ProjectileSpawnLocation, ProjectileSpawnRotation);
 
 		if (Projectile)
 		{
 			Projectile->LaunchProjectile(LaunchSpeed);
-
+			
 			LastFireTime = FPlatformTime::Seconds();
 		}
 	}
 }
 
-// Called when the game starts
 void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...	
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
@@ -94,4 +89,3 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(DeltaRotator.Yaw);
 }
-

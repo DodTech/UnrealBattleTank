@@ -4,6 +4,7 @@
 
 void UTankBarrel::Elevate(float RelativeSpeed)
 {
+	// Normalize barrel elevation speed
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1.0f, 1.0f);
 
 	// Calculate new elevation value for barrel

@@ -1,12 +1,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
 class UTankAimingComponent;
 
+/*!
+ * \class ATankPlayerController
+ *
+ * \brief Class representing player controller.
+ *
+ * \author Ivan Tustanivskyi
+ * \date February 2018
+ */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
@@ -21,12 +28,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
+	// Event which indicates that tank has attached aiming component
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimingComponentReference);
 
 private:
 	// Move the tank barrel towards aiming point specified by crosshair
-	// (shot would hit where crosshair intersects the world)
+	// (shot would hit where crosshair intersects the landscape)
 	void AimTowardsCrosshair();
 
 	// Get location where linetrace hits landscape through crosshair
@@ -46,9 +54,11 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairYLocation = 0.35f;
 
+	// Range in which tank can recognize objects to aim at
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 100000.0f;
 
 private:
+	// Tank aiming component
 	UTankAimingComponent* AimingComponent = nullptr;
 };

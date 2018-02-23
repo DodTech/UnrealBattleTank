@@ -1,12 +1,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
 class UTankAimingComponent;
 
+/*!
+ * \class ATankAIController
+ *
+ * \brief Class representing AI controller.
+ * AI controller is responsible for managing enemy tanks.
+ *
+ * \author Ivan Tustanivskyi
+ * \date February 2018
+ */
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
@@ -21,9 +29,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	// Distance between AI and player tanks that should be reached to make AI controlled tank stop moving towards player
 	UPROPERTY(EditDefaultsOnly)
 	float AcceptanceRadius = 3000.0f;
 
 private:
+	// Tank aiming component
 	UTankAimingComponent* AimingComponent = nullptr;
 };

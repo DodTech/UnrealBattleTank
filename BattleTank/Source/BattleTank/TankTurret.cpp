@@ -2,6 +2,7 @@
 
 void UTankTurret::Rotate(float RelativeSpeed)
 {
+	// Normalize turret rotation speed
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1.0f, 1.0f);
 
 	// Calculate new rotation value for turret

@@ -1,6 +1,5 @@
 #include "Projectile.h"
 
-// Sets default values
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -10,6 +9,7 @@ AProjectile::AProjectile()
 
 	if (ProjectileMovementComponent)
 	{
+		// Prevent projectile from activation at the moment it is spawned, since it should be activated explicitly
 		ProjectileMovementComponent->bAutoActivate = false;
 	}
 }
@@ -20,15 +20,12 @@ void AProjectile::LaunchProjectile(float Speed)
 	ProjectileMovementComponent->Activate();
 }
 
-// Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();	
 }
 
-// Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-

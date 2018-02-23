@@ -5,6 +5,18 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Projectile.generated.h"
 
+/*!
+ * \class AProjectile
+ *
+ * \brief Class representing tank projectile.
+ * Projectiles are instantiated by tank aiming component on firing event.
+ * After launch projectile starts moving in direction pointed by tank barrel with given speed.
+ * Projectile is destroyed when it meets an obstacle (landscape or enemy tank).
+ * From this class corresponding blueprint (Projectile_BP) is derived.
+ *
+ * \author Ivan Tustanivskyi
+ * \date February 2018
+ */
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
 {
