@@ -50,18 +50,22 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// Function called every frame on this ActorComponent
+	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 private:
 	// Move tank barrel to aim at specified direction
 	void MoveBarrel(FVector AimDirection);
+
+public:
+	// Current tank firing status
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringStatus = EFiringState::Reloading;
 
 protected:
 	// Reference to blueprint that inherits from projectile class
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
-
-	// Current tank firing status
-	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringStatus = EFiringState::Aiming;
 
 	// Projectile launch speed
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
@@ -76,7 +80,13 @@ private:
 	UTankBarrel* Barrel = nullptr;
 	// Tank turret
 	UTankTurret* Turret = nullptr;
-
+	
 	// Time when last tank shot was performed
 	double LastFireTime = 0.0;
+
+	// Tolerance for comparing aiming direction and actual barrel direction vectors
+	float AimingTolerance = 0.01f;
+
+	// Flag that indicates if barrel is still moving to be aligned towards aiming direction
+	bool IsBarrelMoving = false;
 };
