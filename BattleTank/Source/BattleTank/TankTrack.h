@@ -20,6 +20,14 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 	GENERATED_BODY()
 
 public:
+	// Sets default values for this component properties
+	UTankTrack();
+
+protected:
+	// Function called every frame on this ActorComponent
+	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+public:
 	// Apply force to move tank
 	// Movement speed and direction depends on throttle value
 	UFUNCTION(BlueprintCallable, Category = Input)
