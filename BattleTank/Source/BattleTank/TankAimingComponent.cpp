@@ -122,5 +122,14 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	IsBarrelMoving = true;
 
 	Barrel->Elevate(DeltaRotator.Pitch);
-	Turret->Rotate(DeltaRotator.Yaw);
+
+	// Determine optimal rotation direction to ensure that turret uses shortest trajectory while aiming
+	if (FMath::Abs(DeltaRotator.Yaw) < 180)
+	{		
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}	
 }
