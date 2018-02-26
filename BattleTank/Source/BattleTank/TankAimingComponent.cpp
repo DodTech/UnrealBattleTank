@@ -42,6 +42,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	}
 }
 
+EFiringStatus UTankAimingComponent::GetFiringStatus() const
+{
+	return FiringStatus;
+}
+
 void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel))
@@ -54,7 +59,7 @@ void UTankAimingComponent::Fire()
 		return;
 	}
 
-	if (FiringStatus != EFiringState::Reloading)
+	if (FiringStatus != EFiringStatus::Reloading)
 	{
 		FVector ProjectileSpawnLocation = Barrel->GetSocketLocation(FName("Projectile"));
 		FRotator ProjectileSpawnRotation = Barrel->GetSocketRotation(FName("Projectile"));
@@ -88,15 +93,15 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 
 	if (!IsReloaded)
 	{
-		FiringStatus = EFiringState::Reloading;
+		FiringStatus = EFiringStatus::Reloading;
 	}
 	else if (IsBarrelMoving)
 	{
-		FiringStatus = EFiringState::Aiming;
+		FiringStatus = EFiringStatus::Aiming;
 	}
 	else
 	{
-		FiringStatus = EFiringState::Locked;
+		FiringStatus = EFiringStatus::Locked;
 	}
 }
 

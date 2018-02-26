@@ -10,7 +10,7 @@ class AProjectile;
 
 // Enumeration representing firing state
 UENUM()
-enum class EFiringState : uint8
+enum class EFiringStatus : uint8
 {
 	Reloading,	// tank is reloading
 	Aiming,		// tank is reloaded and its barrel moving towards aiming point
@@ -42,6 +42,9 @@ public:
 	// Aim at specified location
 	void AimAt(FVector HitLocation);
 
+	// Get current tank firing status
+	EFiringStatus GetFiringStatus() const;
+
 	// Make a shot in direction that is currently pointed by tank barrel
 	UFUNCTION(BlueprintCallable)
 	void Fire();
@@ -60,7 +63,7 @@ private:
 public:
 	// Current tank firing status
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringStatus = EFiringState::Reloading;
+	EFiringStatus FiringStatus = EFiringStatus::Reloading;
 
 protected:
 	// Reference to blueprint that inherits from projectile class

@@ -28,10 +28,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
+protected:
 	// Distance between AI and player tanks that should be reached to make AI controlled tank stop moving towards player
-	UPROPERTY(EditDefaultsOnly)
-	float AcceptanceRadius = 3000.0f;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000.0f;
 
 private:
 	// Tank aiming component
