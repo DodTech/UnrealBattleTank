@@ -14,7 +14,8 @@ enum class EFiringStatus : uint8
 {
 	Reloading,	// tank is reloading
 	Aiming,		// tank is reloaded and its barrel moving towards aiming point
-	Locked		// tank is reloaded and aiming point is captured by its barrel
+	Locked,		// tank is reloaded and aiming point is captured by its barrel
+	Empty		// tank has no ammo to continue shooting
 };
 
 /*!
@@ -56,6 +57,10 @@ protected:
 	// Function called every frame on this ActorComponent
 	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+	// Determine how much ammo left for tank to shoot
+	UFUNCTION(BlueprintCallable)
+	int GetAmmoLeft() const;
+
 private:
 	// Move tank barrel to aim at specified direction
 	void MoveBarrel(FVector AimDirection);
@@ -64,6 +69,10 @@ public:
 	// Current tank firing status
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
+
+	// Amount of tank ammo (how many times tank can shoot)
+	UPROPERTY(BlueprintReadOnly, Category = "Firing")
+	int Ammo = 3;
 
 protected:
 	// Reference to blueprint that inherits from projectile class

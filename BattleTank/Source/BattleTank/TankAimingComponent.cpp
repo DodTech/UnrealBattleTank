@@ -59,7 +59,7 @@ void UTankAimingComponent::Fire()
 		return;
 	}
 
-	if (FiringStatus != EFiringStatus::Reloading)
+	if ((FiringStatus == EFiringStatus::Aiming) || (FiringStatus == EFiringStatus::Locked))
 	{
 		FVector ProjectileSpawnLocation = Barrel->GetSocketLocation(FName("Projectile"));
 		FRotator ProjectileSpawnRotation = Barrel->GetSocketRotation(FName("Projectile"));
@@ -72,6 +72,8 @@ void UTankAimingComponent::Fire()
 			Projectile->LaunchProjectile(LaunchSpeed);
 			
 			LastFireTime = FPlatformTime::Seconds();
+
+			--Ammo;
 		}
 	}
 }
@@ -88,10 +90,17 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	// Determine if tank still has ammo for shooting
+	bool IsOutOfAmmo = Ammo < 1;
+
 	// Determine if there was enough time for tank to reload since last shot was done (or game started)
 	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (!IsReloaded)
+	if (IsOutOfAmmo)
+	{
+		FiringStatus = EFiringStatus::Empty;
+	}
+	else if (!IsReloaded)
 	{
 		FiringStatus = EFiringStatus::Reloading;
 	}
@@ -103,6 +112,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	{
 		FiringStatus = EFiringStatus::Locked;
 	}
+}
+
+int UTankAimingComponent::GetAmmoLeft() const
+{
+	return Ammo;
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
