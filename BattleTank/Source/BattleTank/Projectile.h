@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Projectile.generated.h"
 
 /*!
@@ -36,6 +38,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	// Mesh representing projectile body
+	UPROPERTY(VisibleAnywhere, Category="Components")
+	UStaticMeshComponent* CollisionMesh = nullptr;
+
+	// Effect that presented right after projectile is launched 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* LaunchBlast = nullptr;
 
 private:
 	// Projectile sub-object for movement

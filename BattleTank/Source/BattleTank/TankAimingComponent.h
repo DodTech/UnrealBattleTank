@@ -59,7 +59,7 @@ protected:
 
 	// Determine how much ammo left for tank to shoot
 	UFUNCTION(BlueprintCallable)
-	int GetAmmoLeft() const;
+	int32 GetAmmoLeft() const;
 
 private:
 	// Move tank barrel to aim at specified direction
@@ -71,8 +71,8 @@ public:
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
 
 	// Amount of tank ammo (how many times tank can shoot)
-	UPROPERTY(BlueprintReadOnly, Category = "Firing")
-	int Ammo = 3;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 Ammo = 20;
 
 protected:
 	// Reference to blueprint that inherits from projectile class
