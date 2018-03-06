@@ -35,11 +35,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 private:
+	// Handle hit event to simulate explosion when projectile reaches its target
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+	
 	// Mesh representing projectile body
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	UStaticMeshComponent* CollisionMesh = nullptr;
@@ -47,6 +47,10 @@ private:
 	// Effect that presented right after projectile is launched 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UParticleSystemComponent* LaunchBlast = nullptr;
+
+	// Effect that presented when projectile hits the target
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* ImpactBlast = nullptr;
 
 private:
 	// Projectile sub-object for movement
