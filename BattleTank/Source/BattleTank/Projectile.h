@@ -5,6 +5,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
 #include "Projectile.generated.h"
 
 /*!
@@ -40,6 +41,7 @@ private:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 	
+private:
 	// Mesh representing projectile body
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	UStaticMeshComponent* CollisionMesh = nullptr;
@@ -51,6 +53,10 @@ private:
 	// Effect that presented when projectile hits the target
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UParticleSystemComponent* ImpactBlast = nullptr;
+
+	// Impulse created be projectile when it hits target
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	URadialForceComponent* ExplosionForce = nullptr;
 
 private:
 	// Projectile sub-object for movement
