@@ -34,6 +34,10 @@ public:
 	// Apply damage to tank 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
+	// Calculate percentage of health amount that is left
+	UFUNCTION(BlueprintPure, Category = "Setup")
+	float GetHealthPercent() const;
+
 private:
 	// Amount of tank health (determines how much damage tank can take)
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
