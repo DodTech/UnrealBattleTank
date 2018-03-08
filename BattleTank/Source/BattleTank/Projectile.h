@@ -66,6 +66,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float DestroyDelay = 10.0f;
 
+	// Amount of damage that projectile deals to enemy
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float Damage = 20.0f;
+
 private:
 	// Projectile sub-object for movement
 	UProjectileMovementComponent* ProjectileMovementComponent = nullptr;	

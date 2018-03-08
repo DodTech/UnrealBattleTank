@@ -1,5 +1,8 @@
 #include "Projectile.h"
 
+#include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
+
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -55,6 +58,9 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 	// Destroy projectile mesh after explosion
 	CollisionMesh->DestroyComponent();
+
+	// Apply damage from explosion to all actors in radius
+	bool br = UGameplayStatics::ApplyRadialDamage(this, Damage, GetActorLocation(), ExplosionForce->Radius, UDamageType::StaticClass(), TArray<AActor*>());
 
 	// Start timer which will remove entire projectile object
 	FTimerHandle TimerHandle;

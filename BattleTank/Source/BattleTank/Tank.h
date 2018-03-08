@@ -29,4 +29,17 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+public:
+	// Apply damage to tank 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
+private:
+	// Amount of tank health (determines how much damage tank can take)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	int32 StartingHealth = 100;
+
+	// Amount of actual tank heath
+	UPROPERTY(VisibleAnywhere, Category = "Setup")
+	int32 CurrentHealth = StartingHealth;
 };
