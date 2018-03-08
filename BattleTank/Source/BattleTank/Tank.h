@@ -4,6 +4,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+
 /*!
  * \class ATank
  *
@@ -32,11 +34,15 @@ protected:
 
 public:
 	// Apply damage to tank 
-	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 	// Calculate percentage of health amount that is left
 	UFUNCTION(BlueprintPure, Category = "Setup")
 	float GetHealthPercent() const;
+
+public:
+	// Delegate used for broadcasting tank death event
+	FTankDelegate TankDeathDelegate;
 
 private:
 	// Amount of tank health (determines how much damage tank can take)

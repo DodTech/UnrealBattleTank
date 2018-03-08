@@ -24,6 +24,9 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	// Set pawn possessed by controller
+	virtual void SetPawn(APawn* InPawn) override;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -46,6 +49,11 @@ private:
 
 	// Get location that was hit by line-tracing along look direction
 	bool GetLookDirectionHitLocation(const FVector& LookDirection, FVector& HitLocation) const;
+
+private:
+	// Handle possessed tank death event
+	UFUNCTION()
+	void OnPossessedTankDeath();
 
 private:
 

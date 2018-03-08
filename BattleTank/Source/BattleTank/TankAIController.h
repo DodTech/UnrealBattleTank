@@ -25,8 +25,16 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	// Set pawn possessed by controller
+	virtual void SetPawn(APawn* InPawn) override;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	// Handle possessed tank death event
+	UFUNCTION()
+	void OnPossessedTankDeath();
 
 protected:
 	// Distance between AI and player tanks that should be reached to make AI controlled tank stop moving towards player

@@ -57,10 +57,11 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	ExplosionForce->FireImpulse();
 
 	// Destroy projectile mesh after explosion
+	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
 
 	// Apply damage from explosion to all actors in radius
-	bool br = UGameplayStatics::ApplyRadialDamage(this, Damage, GetActorLocation(), ExplosionForce->Radius, UDamageType::StaticClass(), TArray<AActor*>());
+	UGameplayStatics::ApplyRadialDamage(this, Damage, GetActorLocation(), ExplosionForce->Radius, UDamageType::StaticClass(), TArray<AActor*>());
 
 	// Start timer which will remove entire projectile object
 	FTimerHandle TimerHandle;

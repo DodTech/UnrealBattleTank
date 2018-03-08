@@ -13,7 +13,7 @@ void ATank::BeginPlay()
 	Super::BeginPlay();	
 }
 
-float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s is hit"), *GetName());
 
@@ -26,7 +26,7 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 	// Check if tank is still "alive"
 	if (CurrentHealth <= 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s is dead"), *GetName());
+		TankDeathDelegate.Broadcast();
 	}
 
 	return DamageToApply;
