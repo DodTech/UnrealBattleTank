@@ -44,9 +44,24 @@ void AProjectile::BeginPlay()
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
+	// Deactivate launch blast effect to stop emitting smoke trail
 	LaunchBlast->Deactivate();
 
+	// Start showing explosion effect
 	ImpactBlast->Activate(true);
 
+	// Apply force to object within explosion area
 	ExplosionForce->FireImpulse();
+
+	// Destroy projectile mesh after explosion
+	CollisionMesh->DestroyComponent();
+
+	// Start timer which will remove entire projectile object
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AProjectile::OnTimer, DestroyDelay);
+}
+
+void AProjectile::OnTimer()
+{
+	Destroy();
 }

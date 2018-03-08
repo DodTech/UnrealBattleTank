@@ -41,6 +41,10 @@ private:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 	
+	// Handle timer event to destroy projectile after hitting target
+	UFUNCTION()
+	void OnTimer();
+
 private:
 	// Mesh representing projectile body
 	UPROPERTY(VisibleAnywhere, Category="Components")
@@ -57,6 +61,10 @@ private:
 	// Impulse created be projectile when it hits target
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	URadialForceComponent* ExplosionForce = nullptr;
+
+	// Delay time for projectile destruction after hitting target
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 10.0f;
 
 private:
 	// Projectile sub-object for movement
