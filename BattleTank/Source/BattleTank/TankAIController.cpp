@@ -62,5 +62,12 @@ void ATankAIController::Tick(float DeltaTime)
 
 void ATankAIController::OnPossessedTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ATankAIController OnPossessedTankDeath"));
+	// Get tank possessed by this controller
+	auto ControlledTank = GetPawn();
+
+	if (ControlledTank)
+	{
+		// Detach possessed tank which is destroyed from corresponding AI controller
+		ControlledTank->DetachFromControllerPendingDestroy();
+	}
 }

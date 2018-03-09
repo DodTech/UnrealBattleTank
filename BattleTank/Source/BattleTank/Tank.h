@@ -51,5 +51,5 @@ private:
 
 	// Amount of actual tank heath
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth;
 };

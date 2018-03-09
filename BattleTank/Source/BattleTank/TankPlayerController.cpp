@@ -97,5 +97,6 @@ bool ATankPlayerController::GetLookDirectionHitLocation(const FVector& LookDirec
 
 void ATankPlayerController::OnPossessedTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ATankPlayerController OnPossessedTankDeath"));
+	// Activate spectator mode after tank possessed by player destroyed
+	StartSpectatingOnly();
 }
